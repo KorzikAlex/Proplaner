@@ -5,7 +5,7 @@ from PyQt5 import QtCore, QtWidgets, QtGui
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtWidgets import QApplication, QWidget, QFileDialog, QMessageBox
 from PyQt5.QtCore import QTimer
-from note_designer import Ui_note_app
+from design.note_designer import Ui_note_app
 
 
 class ProgramNote(QWidget, Ui_note_app):
@@ -60,7 +60,7 @@ class ProgramNote(QWidget, Ui_note_app):
                     action = f'''UPDATE notes SET text_path = '{text_path}', image_path = NULL 
                     WHERE name_note = "{name_note}"'''
 
-                connect = sqlite3.connect('note_and_file.db')
+                connect = sqlite3.connect('db/note_and_file.db')
                 cursor = connect.cursor()
                 check_arg = cursor.execute(f'''SELECT text_path FROM notes 
                                 WHERE name_note LIKE "{name_note}"''').fetchall()[0][0]
@@ -76,7 +76,7 @@ class ProgramNote(QWidget, Ui_note_app):
                 else:
                     action = f'''INSERT INTO notes(name_note, text_path) VALUES('{name_note}', '{text_path}')'''
 
-                connect = sqlite3.connect('note_and_file.db')
+                connect = sqlite3.connect('db/note_and_file.db')
                 cursor = connect.cursor()
                 cursor.execute(action)
 
@@ -98,7 +98,7 @@ class ProgramNote(QWidget, Ui_note_app):
         msgBox.setWindowTitle('Ошибка')
 
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("icon.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap("/icons/icon.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         msgBox.setWindowIcon(icon)
         msgBox.setText("Ничего не введено")
         msgBox.setIcon(QMessageBox.Warning)
@@ -110,7 +110,7 @@ class ProgramNote(QWidget, Ui_note_app):
         msgBox.setWindowTitle('Ошибка')
 
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("icon.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap("/icons/icon.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         msgBox.setWindowIcon(icon)
         msgBox.setText("Введите текст")
         msgBox.setIcon(QMessageBox.Warning)
@@ -125,7 +125,7 @@ class ProgramNote(QWidget, Ui_note_app):
         msgBox.setWindowTitle('Выход')
 
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("icon.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap("/icons/icon.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         msgBox.setWindowIcon(icon)
         msgBox.setText("Вы уверены что хотите выйти?")
         msgBox.setIcon(QMessageBox.Information)

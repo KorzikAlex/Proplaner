@@ -23,7 +23,7 @@ class Ui_note_app(object):
         sizePolicy.setHeightForWidth(note_app.sizePolicy().hasHeightForWidth())
         note_app.setSizePolicy(sizePolicy)
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("icon.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap("../icons/icon.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         note_app.setWindowIcon(icon)
         self.text = QtWidgets.QTextEdit(note_app)
         self.text.setGeometry(QtCore.QRect(10, 50, 571, 300))

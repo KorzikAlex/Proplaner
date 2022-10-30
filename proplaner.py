@@ -6,8 +6,8 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QInputDialog
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtCore import QTimer, QTime
 
-from proplaner_designer import Ui_MainWindow
-from note import ProgramNote
+from design.proplaner_designer import Ui_MainWindow
+from functions.note import ProgramNote
 
 
 class Program(QMainWindow, Ui_MainWindow):
@@ -36,7 +36,7 @@ class Program(QMainWindow, Ui_MainWindow):
 
     def add_items_alllist(self):
         try:
-            connect = sqlite3.connect('note_and_file.db')
+            connect = sqlite3.connect('db/note_and_file.db')
             cursor = connect.cursor()
             res_name = cursor.execute('''SELECT name_note FROM notes''').fetchall()
 
@@ -49,7 +49,7 @@ class Program(QMainWindow, Ui_MainWindow):
 
     def add_items_recentlist(self):
         try:
-            connect = sqlite3.connect('note_and_file.db')
+            connect = sqlite3.connect('db/note_and_file.db')
             cursor = connect.cursor()
             res_name = cursor.execute('''SELECT name_note FROM notes''').fetchall()
             res_name.reverse()
@@ -82,7 +82,7 @@ class Program(QMainWindow, Ui_MainWindow):
 
     def open_file(self):
         name_note = self.sender().currentItem().text()
-        connect = sqlite3.connect('note_and_file.db')
+        connect = sqlite3.connect('db/note_and_file.db')
         cursor = connect.cursor()
         text_path = cursor.execute(f'''SELECT text_path FROM notes 
                 WHERE name_note LIKE "{name_note}"''').fetchall()[0][0]
@@ -99,7 +99,7 @@ class Program(QMainWindow, Ui_MainWindow):
 
             self.program.setWindowTitle(name_note)
 
-            connect = sqlite3.connect('note_and_file.db')
+            connect = sqlite3.connect('db/note_and_file.db')
             cursor = connect.cursor()
             image_path = cursor.execute(f'''SELECT image_path FROM notes 
             WHERE name_note LIKE "{name_note}"''').fetchall()[0][0]
@@ -122,7 +122,7 @@ class Program(QMainWindow, Ui_MainWindow):
         msgBox.setWindowTitle('Ошибка')
 
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("icon.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap("icons/icon.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         msgBox.setWindowIcon(icon)
         msgBox.setText("Введите название заметки")
         msgBox.setIcon(QMessageBox.Warning)
@@ -140,7 +140,7 @@ class Program(QMainWindow, Ui_MainWindow):
         refBox.setWindowTitle('О программе')
 
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("icon.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap("icons/icon.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         refBox.setWindowIcon(icon)
         refBox.setText("ProPlaner v 0.2")
         refBox.setInformativeText('Разработал Коршков Александр Александрович, ученик Яндекс Лицея')
@@ -153,7 +153,7 @@ class Program(QMainWindow, Ui_MainWindow):
         refBox.setWindowTitle('Ошибка')
 
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("icon.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap("icons/icon.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         refBox.setWindowIcon(icon)
         refBox.setText("Невозможно открыть этот файл")
         refBox.setInformativeText('Возможно, его составляющие файлы утеряны или удалены')
